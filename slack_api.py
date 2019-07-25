@@ -4,7 +4,7 @@ from slackclient import SlackClient
 
 
 def send_message(msg, channel="#bot_testing", url='', bot_name='Workout Bot'):
-    slack_token = os.getenv('BOT_OATH_ACCESS_TOKEN')
+    slack_token = os.getenv('BOT_OAUTH_ACCESS_TOKEN')
     sc = SlackClient(slack_token)
     if url == '':
         sc.api_call("chat.postMessage", channel=channel, text=msg, username=bot_name)
