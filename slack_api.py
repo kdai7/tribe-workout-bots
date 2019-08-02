@@ -3,7 +3,7 @@ import requests
 from slackclient import SlackClient
 
 
-def send_message(msg, channel="#bot_testing", url='', bot_name='Workout Bot'):
+def send_message(msg, channel="#bot-beta-testing", url='', bot_name='Workout-Bot V.1'):
     slack_token = os.getenv('BOT_OATH_ACCESS_TOKEN')
     sc = SlackClient(slack_token)
     if url == '':
@@ -16,12 +16,12 @@ def send_debug_message(msg, bot_name='Workout Bot'):
     send_message(msg, channel="#bot_testing", bot_name=bot_name)
 
 
-def send_tribe_message(msg, channel="#random", bot_name="Workout Bot"):
+def send_tribe_message(msg, channel="#bot-beta-testing", bot_name="Workout-Bot V.1"):
     send_message(msg, channel, bot_name=bot_name)
 
 
 def send_calendar_message(msg):
-    send_message(msg, channel="#announcements", bot_name='Reminder Bot')
+    send_message(msg, channel="#bot-beta-testing", bot_name='Workout-Bot V.1')
 
 
 def get_group_info():
