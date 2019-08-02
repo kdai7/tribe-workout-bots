@@ -359,13 +359,9 @@ class SlackResponse:
                 count += 1
                 to_print = collect_stats(1, True)
                 send_message(to_print, channel=self._channel, bot_name=self._name, url=self._avatar_url)
-            if '!handsome' in self._lower_text:  # displays the leaderboard for who posts the most
+            if '!lizzie' in self._lower_text:
                 count += 1
-                to_print = collect_stats(1, True)
-                send_message(to_print, channel=self._channel, bot_name=self._name, url=self._avatar_url)
-            if '!heatcheck' in self._lower_text:
-                count += 1
-                send_tribe_message("Kenta wins", channel=self._channel)
+                send_tribe_message("All hail the Lizard King :all-hail:", channel=self._channel)
             if '!regionals' in self._lower_text:
                 count += 1
                 now = datetime.now()
@@ -460,7 +456,7 @@ class SlackResponse:
                 self.like_message(reaction='octopus')
 
     def like_message(self, reaction='robot_face'):
-        slack_token = os.getenv('BOT_OATH_ACCESS_TOKEN')
+        slack_token = os.getenv('BOT_OAUTH_ACCESS_TOKEN')
         sc = SlackClient(slack_token)
         res = sc.api_call("reactions.add", name=reaction, channel=self._channel, timestamp=self._ts)
 

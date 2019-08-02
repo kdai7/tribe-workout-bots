@@ -53,7 +53,7 @@ def collect_stats(datafield, rev):
             port=url.port
         )
         cursor = conn.cursor()
-        # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
+        # get all of the people whose workout scores are greater than -1 (any non players have a workout score of -1)
         cursor.execute(sql.SQL(
             "SELECT * FROM wreck_data WHERE workout_score > -1.0"), )
         leaderboard = cursor.fetchall()
