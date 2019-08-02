@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 
 def add_num_posts(mention_id, event_time, name):
-    # "UPDATE tribe_data SET num_posts=num_posts+1, WHERE name = 'William Syre' AND last_time != "
+    # "UPDATE wreck_data SET num_posts=num_posts+1, WHERE name = 'Sam Loop' AND last_time != "
     try:
         urllib.parse.uses_netloc.append("postgres")
         url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
@@ -26,12 +26,12 @@ def add_num_posts(mention_id, event_time, name):
         cursor = conn.cursor()
         # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
         cursor.execute(sql.SQL(
-            "UPDATE tribe_data SET num_posts=num_posts+1 WHERE slack_id = %s"),
+            "UPDATE wreck_data SET num_posts=num_posts+1 WHERE slack_id = %s"),
             [mention_id[0]])
         if cursor.rowcount == 0:
-            cursor.execute(sql.SQL("INSERT INTO tribe_data VALUES (%s, 0, 0, 0, now(), -1, 1, %s, %s)"),
+            cursor.execute(sql.SQL("INSERT INTO wreck_data VALUES (%s, 0, 0, 0, now(), -1, 1, %s, %s)"),
                            [name, mention_id[0], event_time])
-            send_debug_message("%s is new to Tribe" % name)
+            send_debug_message("%s is new to Wreck" % name)
         conn.commit()
         cursor.close()
         conn.close()
@@ -55,7 +55,7 @@ def collect_stats(datafield, rev):
         cursor = conn.cursor()
         # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
         cursor.execute(sql.SQL(
-            "SELECT * FROM tribe_data WHERE workout_score > -1.0"), )
+            "SELECT * FROM wreck_data WHERE workout_score > -1.0"), )
         leaderboard = cursor.fetchall()
         leaderboard.sort(key=lambda s: s[datafield], reverse=rev)  # sort the leaderboard by score descending
         string1 = "Leaderboard:\n"
@@ -98,12 +98,12 @@ def add_to_db(names, addition, num_workouts, ids):  # add "addition" to each of 
         for x in range(0, len(names)):
             print("starting", names[x])
             cursor.execute(sql.SQL(
-                "SELECT workout_score FROM tribe_data WHERE slack_id = %s"), [str(ids[x])])
+                "SELECT workout_score FROM wreck_data WHERE slack_id = %s"), [str(ids[x])])
             score = cursor.fetchall()[0][0]
             score = int(score)
             if score != -1:
                 cursor.execute(sql.SQL(
-                    "UPDATE tribe_data SET num_workouts=num_workouts+%s, workout_score=workout_score+%s, last_post="
+                    "UPDATE wreck_data SET num_workouts=num_workouts+%s, workout_score=workout_score+%s, last_post="
                     "now() WHERE slack_id = %s"),
                     [str(num_workouts), str(addition), ids[x]])
                 conn.commit()
@@ -138,7 +138,7 @@ def subtract_from_db(names, subtraction, ids):  # subtract "subtraction" from ea
         cursor = conn.cursor()
         for x in range(0, len(names)):
             cursor.execute(sql.SQL(
-                "UPDATE tribe_data SET workout_score = workout_score - %s WHERE slack_id = %s"),
+                "UPDATE wreck_data SET workout_score = workout_score - %s WHERE slack_id = %s"),
                 [subtraction, ids[x]])
             conn.commit()
             send_debug_message("subtracted %s" % names[x])
@@ -167,11 +167,11 @@ def reset_scores():  # reset the scores of everyone
         )
         cursor = conn.cursor()
         cursor.execute(sql.SQL(
-            "UPDATE tribe_data SET num_workouts = 0, workout_score = 0, last_post = now() WHERE workout_score != -1"
+            "UPDATE wreck_data SET num_workouts = 0, workout_score = 0, last_post = now() WHERE workout_score != -1"
         ))
-        cursor.execute(sql.SQL(
-            "DELETE FROM tribe_workouts"
-        ))
+##        cursor.execute(sql.SQL(
+##            "DELETE FROM tribe_workouts"
+##        ))
         conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(str(error))
@@ -196,7 +196,7 @@ def reset_talkative():  # reset the num_posts of everyone
         )
         cursor = conn.cursor()
         cursor.execute(sql.SQL(
-            "UPDATE tribe_data SET num_posts = 0 WHERE workout_score != -1"))
+            "UPDATE wreck_data SET num_posts = 0 WHERE workout_score != -1"))
         conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(str(error))
@@ -207,7 +207,7 @@ def reset_talkative():  # reset the num_posts of everyone
 
 
 def add_reaction_info_date(date, yes, drills, injured, no):
-    # "UPDATE tribe_data SET num_posts=num_posts+1, WHERE name = 'William Syre' AND last_time != "
+    # "UPDATE wreck_data SET num_posts=num_posts+1, WHERE name = 'Sam Loop' AND last_time != "
     try:
         urllib.parse.uses_netloc.append("postgres")
         url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
@@ -239,7 +239,7 @@ def add_reaction_info_date(date, yes, drills, injured, no):
 
 
 def add_reaction_info_ts(ts):
-    # "UPDATE tribe_data SET num_posts=num_posts+1, WHERE name = 'William Syre' AND last_time != "
+    # "UPDATE wreck_data SET num_posts=num_posts+1, WHERE name = 'William Syre' AND last_time != "
     try:
         urllib.parse.uses_netloc.append("postgres")
         url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
@@ -335,7 +335,7 @@ def add_dummy_responses(date):
             port=url.port
         )
         cursor = conn.cursor()
-        cursor.execute(sql.SQL("SELECT slack_id, name FROM tribe_data WHERE workout_score != -1"))
+        cursor.execute(sql.SQL("SELECT slack_id, name FROM wreck_data WHERE workout_score != -1"))
         stuff = cursor.fetchall()
         print("This is the stuff")
         print(stuff)
