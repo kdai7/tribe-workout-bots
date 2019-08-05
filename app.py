@@ -20,7 +20,7 @@ def webhook():
     PICKUP_POINTS = 0.5
     BIKING_POINTS = 1.0
     RUN_POINTS = 1.0
-    BOT_CHANNEL = "CBJAJPZ8B"
+    BOT_CHANNEL = "CL6J8C79S"
     data = request.get_json()
     if 'text' in list(data['event'].keys()):
         lower_text = data['event']['text'].lower()
