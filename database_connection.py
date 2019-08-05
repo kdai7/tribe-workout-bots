@@ -15,7 +15,7 @@ def add_num_posts(mention_id, event_time, name):
     # "UPDATE wreck_data SET num_posts=num_posts+1, WHERE name = 'Sam Loop' AND last_time != "
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -44,7 +44,7 @@ def add_num_posts(mention_id, event_time, name):
 def collect_stats(datafield, rev):
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -69,13 +69,13 @@ def collect_stats(datafield, rev):
 
 
 def get_group_info():
-    url = "https://slack.com/api/users.list?token=" + os.getenv('BOT_OATH_ACCESS_TOKEN')
+    url = "https://slack.com/api/users.list?token=" + os.getenv('BOT_OAUTH_ACCESS_TOKEN')
     json = requests.get(url).json()
     return json
 
 
 def get_emojis():
-    url = 'https://slack.com/api/emoji.list?token=' + os.getenv('OATH_ACCESS_TOKEN')
+    url = 'https://slack.com/api/emoji.list?token=' + os.getenv('OAUTH_ACCESS_TOKEN')
     json = requests.get(url).json()
     return json
 
@@ -86,7 +86,7 @@ def add_to_db(names, addition, num_workouts, ids):  # add "addition" to each of 
     num_committed = 0
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -127,7 +127,7 @@ def subtract_from_db(names, subtraction, ids):  # subtract "subtraction" from ea
     num_committed = 0
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -157,7 +157,7 @@ def reset_scores():  # reset the scores of everyone
     conn = None
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -186,7 +186,7 @@ def reset_talkative():  # reset the num_posts of everyone
     conn = None
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -210,7 +210,7 @@ def add_reaction_info_date(date, yes, drills, injured, no):
     # "UPDATE wreck_data SET num_posts=num_posts+1, WHERE name = 'Sam Loop' AND last_time != "
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -242,7 +242,7 @@ def add_reaction_info_ts(ts):
     # "UPDATE wreck_data SET num_posts=num_posts+1, WHERE name = 'William Syre' AND last_time != "
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -269,7 +269,7 @@ def add_reaction_info_ts(ts):
 def check_reaction_timestamp(ts):
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -299,7 +299,7 @@ def check_reaction_timestamp(ts):
 def count_practice(id, date, number):
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -326,7 +326,7 @@ def count_practice(id, date, number):
 def add_dummy_responses(date):
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -352,7 +352,7 @@ def add_dummy_responses(date):
 def get_unanswered(date):
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -373,7 +373,7 @@ def get_unanswered(date):
 def get_practice_attendance(date):
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -415,7 +415,7 @@ def add_workout(name, slack_id, workout_type):
     conn = None
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -440,7 +440,7 @@ def get_workouts_after_date(date, type, slack_id):
     workouts = []
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
@@ -468,7 +468,7 @@ def get_group_workouts_after_date(date, type):
     print(date, type)
     try:
         urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["HEROKU_POSTGRESQL_MAUVE_URL"])
+        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
         conn = psycopg2.connect(
             database=url.path[1:],
             user=url.username,
