@@ -4,7 +4,7 @@ from slackclient import SlackClient
 
 
 def send_message(msg, channel="#bot-beta-testing", url='', bot_name='Workout-Bot V.1'):
-    slack_token = os.getenv('BOT_OATH_ACCESS_TOKEN')
+    slack_token = os.getenv('BOT_OAUTH_ACCESS_TOKEN')
     sc = SlackClient(slack_token)
     if url == '':
         sc.api_call("chat.postMessage", channel=channel, text=msg, username=bot_name)
@@ -25,25 +25,25 @@ def send_calendar_message(msg):
 
 
 def get_group_info():
-    url = "https://slack.com/api/users.list?token=" + os.getenv('BOT_OATH_ACCESS_TOKEN')
+    url = "https://slack.com/api/users.list?token=" + os.getenv('BOT_OAUTH_ACCESS_TOKEN')
     json = requests.get(url).json()
     return json
 
 
 def get_emojis():
-    url = 'https://slack.com/api/emoji.list?token=' + os.getenv('OATH_ACCESS_TOKEN')
+    url = 'https://slack.com/api/emoji.list?token=' + os.getenv('OAUTH_ACCESS_TOKEN')
     json = requests.get(url).json()
     return json
 
 
 def open_im(user_id):
-    url = "https://slack.com/api/im.open?token=" + os.getenv('BOT_OATH_ACCESS_TOKEN') + "&user=" + user_id
+    url = "https://slack.com/api/im.open?token=" + os.getenv('BOT_OAUTH_ACCESS_TOKEN') + "&user=" + user_id
     json = requests.get(url).json()
     return json
 
 
 def create_poll(channel_id, title, options, ts, anon):
-    slack_token = os.getenv('BOT_OATH_ACCESS_TOKEN')
+    slack_token = os.getenv('BOT_OAUTH_ACCESS_TOKEN')
     sc = SlackClient(slack_token)
     actions = []
     block = [
@@ -122,7 +122,7 @@ def create_poll(channel_id, title, options, ts, anon):
 
 
 def send_categories(title, channel_id, categories):
-    slack_token = os.getenv('BOT_OATH_ACCESS_TOKEN')
+    slack_token = os.getenv('BOT_OAUTH_ACCESS_TOKEN')
     sc = SlackClient(slack_token)
     block = [
         {
