@@ -14,12 +14,12 @@ app = Flask(__name__)
 def webhook():
     print("event received")
     GYM_POINTS = 1.0
-    TRACK_POINTS = 1.0
-    THROW_POINTS = 0.5
-    SWIM_POINTS = 1.0
-    PICKUP_POINTS = 0.5
-    BIKING_POINTS = 1.0
-    RUN_POINTS = 1.0
+    SPRINTS_POINTS = 1.0
+    THROW_POINTS = 1.0
+    CARDIO_POINTS = 0.5
+    PRACTICE_POINTS = 1.0
+    CHALLENGE_POINTS = 1.5
+    TOURNAMENT_POINTS = 1.5
     BOT_CHANNEL = "CBJAJPZ8B"
     data = request.get_json()
     if data['type'] == "url_verification":
@@ -55,10 +55,10 @@ def webhook():
         #     drills = ":alienjeff:"
         #     no = ":nay:"
         #     injured = ":conni:"
-        yes = ":logan:"
-        drills = ":youtried:"
-        no = ":nay:"
-        injured = ":nish:"
+        yes = ":carlton:"
+        drills = ":frosbuh:"
+        no = ":crying-kim:"
+        injured = ":big-cry:"
         print(obj._calendar_title + " found with text "
               + obj._calendar_text + " with date "
               + obj._calendar_date.strftime("%B %d, %Y"))

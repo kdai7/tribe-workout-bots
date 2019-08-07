@@ -169,10 +169,10 @@ def reset_scores():  # reset the scores of everyone
         cursor.execute(sql.SQL(
             "UPDATE wreck_data SET num_workouts = 0, workout_score = 0, last_post = now() WHERE workout_score != -1"
         ))
-        cursor.execute(sql.SQL(
-            "DELETE FROM tribe_workouts"
-        ))
-        conn.commit()
+        # cursor.execute(sql.SQL(
+        #     "DELETE FROM tribe_workouts"
+        # ))
+        # conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(str(error))
     finally:
@@ -218,22 +218,22 @@ def add_reaction_info_date(date, yes, drills, injured, no):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        cursor.execute(sql.SQL("SELECT * FROM reaction_info WHERE date = %s"), [date])
-        if cursor.rowcount == 0:
-            cursor.execute(
-                sql.SQL("INSERT INTO reaction_info (date, yes, no, drills, injured) VALUES (%s, %s, %s, %s, %s)"),
-                [date.strftime("%Y-%B-%d"), yes, no, drills, injured])
-            conn.commit()
-            cursor.close()
-            conn.close()
-            return True
-        else:
-            conn.commit()
-            cursor.close()
-            conn.close()
-            send_debug_message("Found a repeat calendar post")
-            return False
+        # cursor = conn.cursor()
+        # cursor.execute(sql.SQL("SELECT * FROM reaction_info WHERE date = %s"), [date])
+        # if cursor.rowcount == 0:
+        #     cursor.execute(
+        #         sql.SQL("INSERT INTO reaction_info (date, yes, no, drills, injured) VALUES (%s, %s, %s, %s, %s)"),
+        #         [date.strftime("%Y-%B-%d"), yes, no, drills, injured])
+        #     conn.commit()
+        #     cursor.close()
+        #     conn.close()
+        #     return True
+        # else:
+        #     conn.commit()
+        #     cursor.close()
+        #     conn.close()
+        #     send_debug_message("Found a repeat calendar post")
+        #     return False
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
 
@@ -250,19 +250,19 @@ def add_reaction_info_ts(ts):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        cursor.execute(sql.SQL("UPDATE reaction_info SET timestamp = %s WHERE timestamp IS NULL"),
-                       [ts])
-        if cursor.rowcount == 1:
-            conn.commit()
-            cursor.close()
-            conn.close()
-            return True
-        else:
-            conn.commit()
-            cursor.close()
-            conn.close()
-            return False
+        # cursor = conn.cursor()
+        # cursor.execute(sql.SQL("UPDATE reaction_info SET timestamp = %s WHERE timestamp IS NULL"),
+        #                [ts])
+        # if cursor.rowcount == 1:
+        #     conn.commit()
+        #     cursor.close()
+        #     conn.close()
+        #     return True
+        # else:
+        #     conn.commit()
+        #     cursor.close()
+        #     conn.close()
+        #     return False
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
 
@@ -277,20 +277,20 @@ def check_reaction_timestamp(ts):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        cursor.execute(sql.SQL("SELECT * FROM reaction_info WHERE timestamp = %s"), [ts])
-        if cursor.rowcount == 1:
-            stuff = cursor.fetchall()
-            conn.commit()
-            cursor.close()
-            conn.close()
-            print(stuff)
-            return stuff
-        else:
-            conn.commit()
-            cursor.close()
-            conn.close()
-            return []
+        # cursor = conn.cursor()
+        # cursor.execute(sql.SQL("SELECT * FROM reaction_info WHERE timestamp = %s"), [ts])
+        # if cursor.rowcount == 1:
+        #     stuff = cursor.fetchall()
+        #     conn.commit()
+        #     cursor.close()
+        #     conn.close()
+        #     print(stuff)
+        #     return stuff
+        # else:
+        #     conn.commit()
+        #     cursor.close()
+        #     conn.close()
+        #     return []
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
         return []
@@ -307,18 +307,18 @@ def count_practice(id, date, number):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
-        cursor.execute(sql.SQL("UPDATE tribe_attendance SET attendance_code = %s, date_responded=now() where slack_id = %s and practice_date = %s"), [number, id, date])
-        if cursor.rowcount == 1:
-            conn.commit()
-            cursor.close()
-            conn.close()
-            send_debug_message("marked  <@" + str(id) + "> as " + str(number) + " for practice on " + date)
-        else:
-            conn.commit()
-            cursor.close()
-            conn.close()
+        # cursor = conn.cursor()
+        # # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
+        # cursor.execute(sql.SQL("UPDATE tribe_attendance SET attendance_code = %s, date_responded=now() where slack_id = %s and practice_date = %s"), [number, id, date])
+        # if cursor.rowcount == 1:
+        #     conn.commit()
+        #     cursor.close()
+        #     conn.close()
+        #     send_debug_message("marked  <@" + str(id) + "> as " + str(number) + " for practice on " + date)
+        # else:
+        #     conn.commit()
+        #     cursor.close()
+        #     conn.close()
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
 
@@ -339,12 +339,12 @@ def add_dummy_responses(date):
         stuff = cursor.fetchall()
         print("This is the stuff")
         print(stuff)
-        for slack_id, real_name in stuff:
-            cursor.execute(sql.SQL("INSERT INTO tribe_attendance VALUES(%s, %s, -1, %s, now())"),
-                           [real_name, slack_id, date])
-        conn.commit()
-        cursor.close()
-        conn.close()
+        # for slack_id, real_name in stuff:
+        #     cursor.execute(sql.SQL("INSERT INTO tribe_attendance VALUES(%s, %s, -1, %s, now())"),
+        #                    [real_name, slack_id, date])
+        # conn.commit()
+        # cursor.close()
+        # conn.close()
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
 
@@ -360,12 +360,12 @@ def get_unanswered(date):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
-        cursor.execute(sql.SQL("SELECT slack_id FROM tribe_attendance WHERE practice_date = %s and attendance_code = -1"), [date])
-        unanswered = cursor.fetchall()
-        print(unanswered)
-        return unanswered
+        # cursor = conn.cursor()
+        # # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
+        # cursor.execute(sql.SQL("SELECT slack_id FROM tribe_attendance WHERE practice_date = %s and attendance_code = -1"), [date])
+        # unanswered = cursor.fetchall()
+        # print(unanswered)
+        # return unanswered
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
         return []
@@ -381,31 +381,31 @@ def get_practice_attendance(date):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
-        cursor.execute(sql.SQL("SELECT name FROM tribe_attendance WHERE practice_date = %s AND attendance_code = 1"), [date])
-        injured = cursor.fetchall()
-        injured = [x[0] for x in injured]
+        # cursor = conn.cursor()
+        # # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
+        # cursor.execute(sql.SQL("SELECT name FROM tribe_attendance WHERE practice_date = %s AND attendance_code = 1"), [date])
+        # injured = cursor.fetchall()
+        # injured = [x[0] for x in injured]
 
-        cursor.execute(sql.SQL("SELECT name FROM tribe_attendance WHERE practice_date = %s AND attendance_code = -1"), [date])
-        unanswered = cursor.fetchall()
-        unanswered = [x[0] for x in unanswered]
+        # cursor.execute(sql.SQL("SELECT name FROM tribe_attendance WHERE practice_date = %s AND attendance_code = -1"), [date])
+        # unanswered = cursor.fetchall()
+        # unanswered = [x[0] for x in unanswered]
 
-        cursor.execute(sql.SQL("SELECT name FROM tribe_attendance WHERE practice_date = %s AND attendance_code = 2"), [date])
-        drills = cursor.fetchall()
-        drills = [x[0] for x in drills]
+        # cursor.execute(sql.SQL("SELECT name FROM tribe_attendance WHERE practice_date = %s AND attendance_code = 2"), [date])
+        # drills = cursor.fetchall()
+        # drills = [x[0] for x in drills]
 
-        cursor.execute(sql.SQL("SELECT name FROM tribe_attendance WHERE practice_date = %s AND attendance_code = 3"), [date])
-        playing = cursor.fetchall()
-        playing = [x[0] for x in playing]
+        # cursor.execute(sql.SQL("SELECT name FROM tribe_attendance WHERE practice_date = %s AND attendance_code = 3"), [date])
+        # playing = cursor.fetchall()
+        # playing = [x[0] for x in playing]
 
-        cursor.execute(sql.SQL("SELECT name FROM tribe_attendance WHERE practice_date = %s AND attendance_code = 0"), [date])
-        missing = cursor.fetchall()
-        missing = [x[0] for x in missing]
+        # cursor.execute(sql.SQL("SELECT name FROM tribe_attendance WHERE practice_date = %s AND attendance_code = 0"), [date])
+        # missing = cursor.fetchall()
+        # missing = [x[0] for x in missing]
 
-        toRet = {'playing': playing, 'injured': injured, 'drills': drills, 'unanswered': unanswered, "missing": missing}
-        print(toRet)
-        return toRet
+        # toRet = {'playing': playing, 'injured': injured, 'drills': drills, 'unanswered': unanswered, "missing": missing}
+        # print(toRet)
+        # return toRet
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
         return {'failure': []}
@@ -423,10 +423,10 @@ def add_workout(name, slack_id, workout_type):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        cursor.execute(sql.SQL("INSERT INTO tribe_workouts VALUES (%s, %s, %s, now())"), [str(name), str(slack_id), str(workout_type)])
-        conn.commit()
-        send_debug_message("Committed " + name + " to the workout list")
+        # cursor = conn.cursor()
+        # cursor.execute(sql.SQL("INSERT INTO tribe_workouts VALUES (%s, %s, %s, now())"), [str(name), str(slack_id), str(workout_type)])
+        # conn.commit()
+        # send_debug_message("Committed " + name + " to the workout list")
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(str(error))
     finally:
@@ -448,11 +448,11 @@ def get_workouts_after_date(date, type, slack_id):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        cursor.execute(sql.SQL("SELECT * from tribe_workouts WHERE slack_id=%s and workout_date BETWEEN %s and now() and workout_type=%s"),
-                       [slack_id, date, "!" + type])
-        workouts = cursor.fetchall()
-        conn.commit()
+        # cursor = conn.cursor()
+        # cursor.execute(sql.SQL("SELECT * from tribe_workouts WHERE slack_id=%s and workout_date BETWEEN %s and now() and workout_type=%s"),
+        #                [slack_id, date, "!" + type])
+        # workouts = cursor.fetchall()
+        # conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(str(error))
     finally:
@@ -476,11 +476,11 @@ def get_group_workouts_after_date(date, type):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        cursor.execute(sql.SQL("SELECT * from tribe_workouts WHERE workout_date BETWEEN %s and now() and workout_type=%s"),
-                       [date, "!" + type])
-        workouts = cursor.fetchall()
-        conn.commit()
+        # cursor = conn.cursor()
+        # cursor.execute(sql.SQL("SELECT * from tribe_workouts WHERE workout_date BETWEEN %s and now() and workout_type=%s"),
+        #                [date, "!" + type])
+        # workouts = cursor.fetchall()
+        # conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(str(error))
     finally:
@@ -507,11 +507,11 @@ def add_tracked_poll(title, slack_id, ts, options, channel, anonymous):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        cursor.execute(sql.SQL("INSERT INTO tribe_poll_data VALUES (%s, %s, %s, %s, %s, %s)"),
-                       [ts, slack_id, title, option_string, channel, anonymous])
-        conn.commit()
-        send_debug_message("Committed " + title + " to the poll list")
+        # cursor = conn.cursor()
+        # cursor.execute(sql.SQL("INSERT INTO tribe_poll_data VALUES (%s, %s, %s, %s, %s, %s)"),
+        #                [ts, slack_id, title, option_string, channel, anonymous])
+        # conn.commit()
+        # send_debug_message("Committed " + title + " to the poll list")
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(str(error))
     finally:
@@ -533,11 +533,11 @@ def add_poll_reaction(ts, options_number, slack_id):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        cursor.execute(sql.SQL("UPDATE tribe_poll_responses SET response_num=%s where slack_id=%s AND ts=%s"),
-                       [options_number, slack_id, ts])
-        conn.commit()
-        send_debug_message("Committed <@" + slack_id + ">'s response to the poll responses")
+        # cursor = conn.cursor()
+        # cursor.execute(sql.SQL("UPDATE tribe_poll_responses SET response_num=%s where slack_id=%s AND ts=%s"),
+        #                [options_number, slack_id, ts])
+        # conn.commit()
+        # send_debug_message("Committed <@" + slack_id + ">'s response to the poll responses")
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(str(error))
     finally:
@@ -557,17 +557,17 @@ def add_poll_dummy_responses(ts):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        cursor.execute(sql.SQL("SELECT slack_id, name FROM wreck_data WHERE workout_score != -1"))
-        stuff = cursor.fetchall()
-        print("This is the stuff")
-        print(stuff)
-        for slack_id, real_name in stuff:
-            cursor.execute(sql.SQL("INSERT INTO tribe_poll_responses VALUES(%s, %s, %s, -1)"),
-                           [ts, real_name, slack_id])
-        conn.commit()
-        cursor.close()
-        conn.close()
+        # cursor = conn.cursor()
+        # cursor.execute(sql.SQL("SELECT slack_id, name FROM wreck_data WHERE workout_score != -1"))
+        # stuff = cursor.fetchall()
+        # print("This is the stuff")
+        # print(stuff)
+        # for slack_id, real_name in stuff:
+        #     cursor.execute(sql.SQL("INSERT INTO tribe_poll_responses VALUES(%s, %s, %s, -1)"),
+        #                    [ts, real_name, slack_id])
+        # conn.commit()
+        # cursor.close()
+        # conn.close()
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
 
@@ -583,17 +583,17 @@ def get_poll_data(ts):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        cursor.execute(sql.SQL("SELECT title, options FROM tribe_poll_data WHERE ts = %s"), [ts])
-        poll_data = cursor.fetchall()
-        title = poll_data[0][0]
-        options = poll_data[0][1]
+        # cursor = conn.cursor()
+        # cursor.execute(sql.SQL("SELECT title, options FROM tribe_poll_data WHERE ts = %s"), [ts])
+        # poll_data = cursor.fetchall()
+        # title = poll_data[0][0]
+        # options = poll_data[0][1]
 
-        cursor.execute(sql.SQL("SELECT real_name, response_num FROM tribe_poll_responses WHERE ts = %s"), [ts])
-        poll_responses = cursor.fetchall()
-        conn.commit()
-        cursor.close()
-        conn.close()
+        # cursor.execute(sql.SQL("SELECT real_name, response_num FROM tribe_poll_responses WHERE ts = %s"), [ts])
+        # poll_responses = cursor.fetchall()
+        # conn.commit()
+        # cursor.close()
+        # conn.close()
 
         data = {}
         for option in options:
@@ -623,12 +623,12 @@ def clear_poll_data():
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        cursor.execute(sql.SQL("DELETE FROM tribe_poll_responses"))
-        cursor.execute(sql.SQL("DELETE FROM tribe_poll_data"))
-        conn.commit()
-        cursor.close()
-        conn.close()
+        # cursor = conn.cursor()
+        # cursor.execute(sql.SQL("DELETE FROM tribe_poll_responses"))
+        # cursor.execute(sql.SQL("DELETE FROM tribe_poll_data"))
+        # conn.commit()
+        # cursor.close()
+        # conn.close()
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
 
@@ -644,15 +644,15 @@ def get_poll_unanswered(ts):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
-        cursor.execute(sql.SQL("SELECT slack_id FROM tribe_poll_responses WHERE ts = %s and response_num = -1"), [ts])
-        unanswered = cursor.fetchall()
-        conn.commit()
-        cursor.close()
-        conn.close()
-        print(unanswered)
-        return unanswered
+        # cursor = conn.cursor()
+        # # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
+        # cursor.execute(sql.SQL("SELECT slack_id FROM tribe_poll_responses WHERE ts = %s and response_num = -1"), [ts])
+        # unanswered = cursor.fetchall()
+        # conn.commit()
+        # cursor.close()
+        # conn.close()
+        # print(unanswered)
+        # return unanswered
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
         return []
@@ -669,16 +669,16 @@ def get_poll_owner(ts):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
-        cursor.execute(sql.SQL("SELECT slack_id FROM tribe_poll_data WHERE ts = %s"),
-                       [ts])
-        owner = cursor.fetchall()
-        conn.commit()
-        cursor.close()
-        conn.close()
-        print(owner)
-        return owner[0][0]
+        # cursor = conn.cursor()
+        # # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
+        # cursor.execute(sql.SQL("SELECT slack_id FROM tribe_poll_data WHERE ts = %s"),
+        #                [ts])
+        # owner = cursor.fetchall()
+        # conn.commit()
+        # cursor.close()
+        # conn.close()
+        # print(owner)
+        # return owner[0][0]
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
         return []
@@ -695,11 +695,11 @@ def delete_poll(timestamp):
             host=url.hostname,
             port=url.port
         )
-        cursor = conn.cursor()
-        cursor.execute(sql.SQL("DELETE FROM tribe_poll_data WHERE ts = %s"), [timestamp])
-        cursor.execute(sql.SQL("DELETE FROM tribe_poll_responses WHERE ts = %s"), [timestamp])
-        conn.commit()
-        cursor.close()
-        conn.close()
+        # cursor = conn.cursor()
+        # cursor.execute(sql.SQL("DELETE FROM tribe_poll_data WHERE ts = %s"), [timestamp])
+        # cursor.execute(sql.SQL("DELETE FROM tribe_poll_responses WHERE ts = %s"), [timestamp])
+        # conn.commit()
+        # cursor.close()
+        # conn.close()
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)

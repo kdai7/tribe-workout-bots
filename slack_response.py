@@ -21,13 +21,12 @@ class SlackResponse:
         self._event = json_data['event']
         self._repeat = False
         self.GYM_POINTS = 1.0
-        self.TRACK_POINTS = 1.0
-        self.THROW_POINTS = 0.5
-        self.SWIM_POINTS = 1.0
-        self.PICKUP_POINTS = 0.5
-        self.BIKING_POINTS = 1.0
-        self.RUN_POINTS = 1.0
-        self.TOURNAMENT_POINTS = 2.0
+        self.SPRINTS_POINTS = 1.0
+        self.THROW_POINTS = 1.0
+        self.CARDIO_POINTS = 0.5
+        self.PICKUP_POINTS = 1.0
+        self.CHALLENGE_POINTS = 1.0
+        self.TOURNAMENT_POINTS = 1.5
         self._additions = []
         self._reaction_added = False
         self._reaction_removed = False
@@ -169,24 +168,21 @@ class SlackResponse:
         if '!gym' in self._lower_text:
             self._points_to_add += self.GYM_POINTS
             self._additions.append('!gym')
-        if '!track' in self._lower_text:
-            self._points_to_add += self.TRACK_POINTS
-            self._additions.append('!track')
+        if '!sprint' in self._lower_text:
+            self._points_to_add += self.SPRINTS_POINTS
+            self._additions.append('!sprint')
         if '!throw' in self._lower_text:
             self._points_to_add += self.THROW_POINTS
             self._additions.append('!throw')
-        if '!swim' in self._lower_text:
-            self._points_to_add += self.SWIM_POINTS
-            self._additions.append('!swim')
+        if '!cardio' in self._lower_text:
+            self._points_to_add += self.CARDIO_POINTS
+            self._additions.append('!cardio')
         if '!pickup' in self._lower_text:
             self._points_to_add += self.PICKUP_POINTS
             self._additions.append('!pickup')
-        if '!bike' in self._lower_text:
-            self._points_to_add += self.BIKING_POINTS
-            self._additions.append('!bike')
-        if '!run' in self._lower_text:
-            self._points_to_add += self.RUN_POINTS
-            self._additions.append('!run')
+        if '!challenge' in self._lower_text:
+            self._points_to_add += self.CHALLENGE_POINTS
+            self._additions.append('!challenge')
         if '!tournament' in self._lower_text:
             self._points_to_add += self.TOURNAMENT_POINTS
             self._additions.append('!tournament')
@@ -209,15 +205,15 @@ class SlackResponse:
         count = 0
         if not self._repeat:
             if "!help" in self._lower_text:
-                send_tribe_message("Available commands:\n!leaderboard\n!workouts\n!talkative\n!regionals\n!points"
-                                   "\n!gym\n!track\n!tournament\n!pickup\n!throw\n!swim\n!bike\n!run\n!since [YYYY-MM-DD] [type] [@name]"
+                send_tribe_message("Available commands:\n!leaderboard\n!workouts\n!regionals\n!points"
+                                   "\n!gym\n!sprints\n!tournament\n!pickup\n!throw\n!cardio\n!challenge\n!since [YYYY-MM-DD] [type] [@name]"
                                    "\n!groupsince [YYYY-MM-DD] [type]"
-                                   "\n!poll \"Title\" \"option 1\" ... \"option n\"",
+                                   "\n \"Title\" \"option 1\" ... \"option n\"",
                                    channel=self._channel, bot_name="Helper Bot")
             if "!points" in self._lower_text:
                 send_tribe_message("Point Values:\ngym: %.1f\ntrack %.1f\ntournament %.1f\npickup %.1f\nthrow %.1f\nswim %.1f\nbike %.1f\nrun %.1f"
-                                   % (self.GYM_POINTS, self.TRACK_POINTS, self.TOURNAMENT_POINTS, self.PICKUP_POINTS,
-                                      self.THROW_POINTS, self.SWIM_POINTS, self.BIKING_POINTS, self.RUN_POINTS), channel=self._channel)
+                                   % (self.GYM_POINTS, self.SPRINTS_POINTS, self.TOURNAMENT_POINTS, self.PICKUP_POINTS,
+                                      self.THROW_POINTS, self.CARDIO_POINTS, self.CHALLENGE_POINTS), channel=self._channel)
             if "!leaderboard" in self._lower_text:
                 count += 1
                 to_print = collect_stats(3, True)
@@ -230,17 +226,17 @@ class SlackResponse:
                 count += 1
                 to_print = collect_stats(1, True)
                 send_message(to_print, channel=self._channel, bot_name=self._name, url=self._avatar_url)
-            if '!handsome' in self._lower_text:  # displays the leaderboard for who posts the most
+            if '!yummy' in self._lower_text:  # displays the leaderboard for who posts the most
                 count += 1
                 to_print = collect_stats(1, True)
                 send_message(to_print, channel=self._channel, bot_name=self._name, url=self._avatar_url)
-            if '!heatcheck' in self._lower_text:
+            if '!lizzie' in self._lower_text:
                 count += 1
-                send_tribe_message("Kenta wins", channel=self._channel)
+                send_tribe_message("All hail the lizard king", channel=self._channel)
             if '!regionals' in self._lower_text:
                 count += 1
                 now = datetime.now()
-                regionals = datetime(2019, 4, 28, 8, 0, 0)
+                regionals = datetime(2020, 4, 25, 8, 0, 0)
                 until = regionals - now
                 send_tribe_message("regionals is in " + stringFromSeconds(until.total_seconds()), channel=self._channel)
             if '!subtract' in self._lower_text and self._user_id == 'UAPHZ3SJZ':
