@@ -185,7 +185,7 @@ class SlackResponse:
             self._points_to_add += self.BIKING_POINTS
             self._additions.append('!bike')
         if '!run' in self._lower_text:
-            self._points_to_add += self.BIKING_POINTS
+            self._points_to_add += self.RUN_POINTS
             self._additions.append('!run')
         if '!tournament' in self._lower_text:
             self._points_to_add += self.TOURNAMENT_POINTS
@@ -381,7 +381,7 @@ class SlackResponse:
                 self.like_message(reaction='octopus')
 
     def like_message(self, reaction='robot_face'):
-        slack_token = os.getenv('BOT_OATH_ACCESS_TOKEN')
+        slack_token = os.getenv('BOT_OAUTH_ACCESS_TOKEN')
         sc = SlackClient(slack_token)
         res = sc.api_call("reactions.add", name=reaction, channel=self._channel, timestamp=self._ts)
 
