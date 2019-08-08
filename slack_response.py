@@ -248,26 +248,26 @@ class SlackResponse:
                 num = subtract_from_db(self._all_names[:-1], float(self._lower_text[-3:]), self._all_ids[:-1])
                 print(num)
                 count += 1
-            if '!reset' in self._lower_text and self._user_id == 'UAPHZ3SJZ':
+            if '!reset' in self._lower_text and self._user_id == 'UDDLRR7SN':
                 to_print = collect_stats(3, True)
                 send_tribe_message(to_print, channel=self._channel, bot_name=self._name)
                 reset_scores()
                 send_debug_message("Resetting leaderboard")
                 count += 1
-            if '!silence' in self._lower_text and self._user_id == 'UAPHZ3SJZ':
+            if '!silence' in self._lower_text and self._user_id == 'UDDLRR7SN':
                 to_print = collect_stats(1, True)
                 send_tribe_message(to_print, channel=self._channel, bot_name=self._name)
                 reset_talkative()
                 send_debug_message("Resetting talkative")
                 count += 1
-            if '!add' in self._lower_text and self._user_id == 'UAPHZ3SJZ':
+            if '!add' in self._lower_text and self._user_id == 'UDDLRR7SN':
                 send_debug_message("ADDING: " + self._lower_text[-3:] + " TO: " + str(self._all_names[:-1]))
                 num = add_to_db(self._all_names[:-1], self._lower_text[-3:], 1, self._all_ids[:-1])
                 print(num)
                 count += 1
             if '!test' in self._lower_text:
                 pass
-            if '!clearpoll' in self._lower_text and self._user_id == 'UAPHZ3SJZ':
+            if '!clearpoll' in self._lower_text and self._user_id == 'UDDLRR7SN':
                 clear_poll_data()
             if '!poll' in self._lower_text:
                 #!poll "Title" "option 1" ... "option n"
