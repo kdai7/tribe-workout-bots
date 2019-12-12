@@ -172,7 +172,7 @@ def reset_scores():  # reset the scores of everyone
         # cursor.execute(sql.SQL(
         #     "DELETE FROM tribe_workouts"
         # ))
-        # conn.commit()
+        conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(str(error))
     finally:
