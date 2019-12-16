@@ -9,17 +9,17 @@ You will need the following to implement this bot:
 3. A Slack workspace that you have the permissions to add a bot to
 4. Psql installed (you can uninstall once you have set up the database)
 
-##Create the Slack App
+## Create the Slack App
 Start by heading over to https://api.slack.com/, clicking "Start Building," and then proceed to name your bot and add it to your workspace. Your app has now been officially created!
 
-##Setting up Heroku
+## Setting up Heroku
 Head to Heroku and, upon logging in, you should be presented with a list of your preexisting apps. Towards the top right, click "New" and then select "Create new app." Name your app accordingly, the US region is fine and you don't need to add it to any pipelines.
 
 In the Deploy tab now, select Github as your deployment method. You will have to connect your Github account to Heroku. Then link the app to the cloned repository. I recommend setting up automatic deploys below this. You can deploy your app shortly after as well!
 
 Once your app has been deployed, clicking "Open app" will now send you to a page with a URL something like <your-app-name>.herokuapp.com. Keep this URL handy, as you will need while setting up your app in Slack.
 
-###Config Vars
+### Config Vars
 Now is the time to input the config vars the app needs. Head over to the "Settings" tab and click "Reveal Config Vars." You should see the DATABASE_URL there already; Heroku will automatically input that for you. For this app, you need the BOT_OAUTH_ACCESS_TOKEN and OAUTH_ACCESS_TOKEN. You can get these from Slack by:
 
 1. Navigate to api.slack.com, and get to your app's page
@@ -29,12 +29,12 @@ Now is the time to input the config vars the app needs. Head over to the "Settin
 
 Those are the only two config vars you will need for this app.
 
-###Provisioning and Setting up Database
+### Provisioning and Setting up Database
 From the Heroku dashboard, click the Resources tab (or alternatively click "Configure Add-ons" from the overview tab) then search for and provision Heroku Postgres. The free Hobby Dev plan suffices for the bot. 
 
 Now that your app has a database, you need to create the table for your app to store data in.
 
-####Setting up Database
+#### Setting up Database
 Open up command prompt/terminal. You will need the Heroku CLI installed, as well as Psql. You can look up the commands for Heroku CLI online, but if you don't want to look into that you can run the commands in the following order:
 
 1. heroku login
@@ -45,9 +45,10 @@ Open up command prompt/terminal. You will need the Heroku CLI installed, as well
 
 That's it for command line statements! You can double check that your table was created with the \d command after.
 
-##Slack Permissions
+## Slack Permissions
+Head back to your bot's page on api.slack.com. Now all that is left is for you to set permissions for the bot.
 
-###App Permissions
+### App Permissions
 In the left sidebar, head to "Event Subscriptions" underneath "Features." Flip the "Enable Events" switch to On, then input the URL you got earlier (<your-app-name>.herokuapp.com). Once it is verified, you will be able to select which events your app subscribes to.
 
 Subscribe to the following Workspace Events:
