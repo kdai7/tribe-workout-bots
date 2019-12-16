@@ -9,11 +9,8 @@ You will need the following to implement this bot:
 3. A Slack workspace that you have the permissions to add a bot to
 4. Psql installed (you can uninstall once you have set up the database)
 
-##Setting up Slack
+##Create the Slack App
 Start by heading over to https://api.slack.com/, clicking "Start Building," and then proceed to name your bot and add it to your workspace. Your app has now been officially created!
-
-###Setting up Permissions
-Event Subscriptions:
 
 ##Setting up Heroku
 Head to Heroku and, upon logging in, you should be presented with a list of your preexisting apps. Towards the top right, click "New" and then select "Create new app." Name your app accordingly, the US region is fine and you don't need to add it to any pipelines.
@@ -43,9 +40,28 @@ Open up command prompt/terminal. You will need the Heroku CLI installed, as well
 1. heroku login
 	a. you should be prompted to login via browser after this
 2. heroku pg:psql -a <bot name as it appears on heroku>
-3. CREATE TABLE <database name> (name text, num_posts SMALLINT, num_workouts SMALLINT, workout_score numeric(4, 1), last_post DATE, slack_id INT, last_time BIGINT);
+3. CREATE TABLE <database name> (name text, num_posts SMALLINT, num_workouts SMALLINT, workout_score numeric(4, 1), last_post DATE, slack_id CHAR(9), last_time BIGINT);
 	a. the database name should match what is in the code. depending on what repo you cloned, it will likely be tribe_data
 
 That's it for command line statements! You can double check that your table was created with the \d command after.
 
+##Slack Permissions
 
+###App Permissions
+In the left sidebar, head to "Event Subscriptions" underneath "Features." Flip the "Enable Events" switch to On, then input the URL you got earlier (<your-app-name>.herokuapp.com). Once it is verified, you will be able to select which events your app subscribes to.
+
+Subscribe to the following Workspace Events:
+message.channels
+message.groups
+message.im
+reaction_added
+reaction_removed
+
+Subscribe to the following Bot Events:
+app_mention
+message.channels
+message.im
+reaction_added
+reaction_removed
+
+Make sure to save these changes. Once you do, you'll be prompted to reinstall your app. Once you have done so, you should have a functional workout bot in your channel!
