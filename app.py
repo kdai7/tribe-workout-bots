@@ -1,5 +1,5 @@
-from winter_db import *
-from wreck_winter_challenge import WreckAWinter
+from wreck_db import *
+from wreck_challenge import WreckA
 from slack_api import *
 from time import sleep
 import json
@@ -26,7 +26,7 @@ def webhook():
         if int(request.__dict__['environ']['HTTP_X_SLACK_RETRY_NUM']):
             return make_response("Ok", 200, )
     print(data)
-    obj = WreckAWinter(data)
+    obj = WreckA(data)
     if not obj._bot and not obj._reaction_added and not obj._reaction_removed:
         print("not a bot")
         obj.isRepeat()
