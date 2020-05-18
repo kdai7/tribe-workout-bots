@@ -25,7 +25,7 @@ def send_calendar_message(msg):
 
 
 def get_group_info():
-    url = "https://slack.com/api/users.list?token=" + os.getenv('BOT_OAUTH_ACCESS_TOKEN')
+    url = "https://slack.com/api/users.list?token=" + os.getenv('OAUTH_ACCESS_TOKEN')  #changed from bot_oauth
     json = requests.get(url).json()
     return json
 
