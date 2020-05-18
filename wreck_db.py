@@ -27,7 +27,7 @@ def add_num_posts(mention_id, event_time, name, channel_id):
         cursor.execute(sql.SQL(
             "UPDATE wreck_data SET num_posts=num_posts+1 WHERE slack_id = %s"),
             [mention_id[0]])
-        if cursor.rowcount == 0 and channel_id == "GUF7AMF1Q":
+        if cursor.rowcount == 0:
             cursor.execute(sql.SQL("INSERT INTO wreck_data VALUES (%s, 0, 0, 0, 0, 0, 0, now(), %s, %s)"),
                            [name, mention_id[0], event_time])
             send_debug_message("%s is new to Wreck" % name)
