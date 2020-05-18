@@ -99,7 +99,7 @@ def add_to_db(channel_id, names, addition, gym_num, throw_num, cardio_num, num_w
                 "SELECT workout_score FROM wreck_data WHERE slack_id = %s"), [str(ids[x])])
             score = cursor.fetchall()[0][0]
             score = int(score)
-            if score != -1 and channel_id == "GUF7AMF1Q":
+            if score != -1:
                 cursor.execute(sql.SQL("""
                     UPDATE wreck_data SET num_workouts=num_workouts+%s,
                     num_throws=num_throws+%s, num_cardio=num_cardio+%s, num_gym=num_gym+%s,
