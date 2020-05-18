@@ -52,10 +52,9 @@ def collect_stats(datafield, rev):
         )
         cursor = conn.cursor()
         # get all of the people who's workout scores are greater than -1 (any non players have a workout score of -1)
-        leaderboard = cursor.execute(sql.SQL(
+        cursor.execute(sql.SQL(
             "SELECT * FROM wreck_data WHERE workout_score > -1.0"), )
-        # leaderboard = cursor.fetchall()
-        leaderboard.fetchall()
+        leaderboard = cursor.fetchall()
         leaderboard.sort(key=lambda s: s[6], reverse=rev)  # sort the leaderboard by score descending
         string1 = "Leaderboard:\n"
         for x in range(0, len(leaderboard)):
