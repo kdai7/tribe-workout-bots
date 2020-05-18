@@ -7,9 +7,11 @@ def send_message(msg, channel="#bot-testing-public", url='', bot_name='Workout-B
     slack_token = os.getenv('BOT_OAUTH_ACCESS_TOKEN')
     sc = SlackClient(slack_token)
     if url == '':
-        sc.api_call("chat.postMessage", channel=channel, text=msg, username=bot_name)
+        sc.api_call("chat.postMessage", channel=channel, text=msg)
+        # sc.api_call("chat.postMessage", channel=channel, text=msg, username=bot_name)
     else:
-        sc.api_call("chat.postMessage", channel=channel, text=msg, username=bot_name, icon_url=url)
+        # sc.api_call("chat.postMessage", channel=channel, text=msg, username=bot_name, icon_url=url)
+        sc.api_call("chat.postMessage", channel=channel, text=msg)
 
 
 def send_debug_message(msg, bot_name='im dumb'):
