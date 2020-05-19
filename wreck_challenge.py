@@ -10,7 +10,7 @@ class WreckA:
 
         ## point values
         self.GYM_POINTS = 1.0
-        self.THROW_POINTS = 1.0
+        self.THROW_POINTS = 0.5
         self.CARDIO_POINTS = 1.0
         self.CHALLENGE_POINTS = 1.0
         self._additions = []
