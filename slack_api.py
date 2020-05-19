@@ -15,7 +15,7 @@ def send_message(msg, channel="#bot-testing-public", url='', bot_name='Workout-B
 
 
 def send_debug_message(msg, bot_name='im dumb'):
-    send_message(msg, channel="#bot-debug", bot_name=bot_name)
+    send_message(msg, channel="#bot-testing", bot_name=bot_name)
 
 
 def send_tribe_message(msg, channel="#bot-testing-public", bot_name="Workout-Bot"):

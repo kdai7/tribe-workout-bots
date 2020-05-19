@@ -204,24 +204,24 @@ class WreckA:
             if '!lizzie' in self._lower_text:
                 count += 1
                 send_tribe_message("All hail the lizard king", channel=self._channel)
-            if '!subtract' in self._lower_text and self._user_id == 'UDDLRR7SN':
+            if '!subtract' in self._lower_text and self._user_id == 'UDCTR821E':
                 send_debug_message("SUBTRACTING: " + self._lower_text[-3:] + " FROM: " + str(self._all_names[:-1]))
                 num = subtract_from_db(self._all_names[:-1], float(self._lower_text[-3:]), self._all_ids[:-1])
                 print(num)
                 count += 1
-            if '!reset' in self._lower_text and self._user_id == 'UDDLRR7SN':
+            if '!reset' in self._lower_text and self._user_id == 'UDCTR821E':
                 to_print = collect_stats(3, True)
                 send_tribe_message(to_print, channel=self._channel, bot_name=self._name)
                 reset_scores()
                 send_debug_message("Resetting leaderboard")
                 count += 1
-            if '!silence' in self._lower_text and self._user_id == 'UDDLRR7SN':
+            if '!silence' in self._lower_text and self._user_id == 'UDCTR821E':
                 to_print = collect_stats(1, True)
                 send_tribe_message(to_print, channel=self._channel, bot_name=self._name)
                 reset_talkative()
                 send_debug_message("Resetting talkative")
                 count += 1
-            if '!add' in self._lower_text and self._user_id == 'UDDLRR7SN':
+            if '!add' in self._lower_text and self._user_id == 'UDCTR821E':
                 send_debug_message("ADDING: " + self._lower_text[-3:] + " TO: " + str(self._all_names[:-1]))
                 num = add_to_db(self._all_names[:-1], self._lower_text[-3:], 1, self._all_ids[:-1])
                 print(num)
