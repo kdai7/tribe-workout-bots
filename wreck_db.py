@@ -32,14 +32,11 @@ def add_num_posts(mention_id, event_time, name, channel_id):
                            [name, mention_id[0], event_time])
             send_debug_message("%s is new to Wreck" % name)
         #for any mentions that haven't posted before
-        for x in range(1, len(mention_id)):
-            cursor.execute(sql.SQL(
-            "UPDATE wreck_data SET num_posts=num_posts+1 WHERE slack_id = %s"),
-            [mention_id[x]])
-            if cursor.rowcount == 0 and channel_id == "C013LDTN13Q":    #comment: add channel id here
-                cursor.execute(sql.SQL("INSERT INTO wreck_data VALUES (%s, 0, 0, 0, 0, 0, 0, now(), %s, %s)"),
-                            [name, mention_id[x], event_time])
-                send_debug_message("%s is new to Wreck" % name)
+        # for x in range(1, len(mention_id)):
+        #     if cursor.rowcount == 0 and channel_id == "C013LDTN13Q":    #comment: add channel id here
+        #         cursor.execute(sql.SQL("INSERT INTO wreck_data VALUES (%s, 0, 0, 0, 0, 0, 0, now(), %s, %s)"),
+        #                     [name, mention_id[x], event_time])
+        #         send_debug_message("%s is new to Wreck" % name)
         conn.commit()
         cursor.close()
         conn.close()
@@ -119,18 +116,19 @@ def add_to_db(channel_id, names, addition, gym_num, throw_num, cardio_num, num_w
                 send_debug_message("committed %s with %s points" % (names[x], str(addition)))
                 print("committed %s" % names[x])
                 num_committed += 1
-            # elif score == -1 and channel_id == "C013LDTN13Q":
-            #     cursor.execute(sql.SQL("INSERT INTO wreck_data VALUES (%s, 0, 0, 0, 0, 0, 0, now(), %s, %s)"),
-            #                [names[x], str(ids[x]), event_time])
-            #     send_debug_message("%s is new to Wreck" % name)
-            #     cursor.execute(sql.SQL("""
-            #         UPDATE wreck_data SET num_workouts=num_workouts+%s,
-            #         num_throws=num_throws+%s, num_cardio=num_cardio+%s, num_gym=num_gym+%s,
-            #         workout_score=workout_score+%s, last_post=now() WHERE slack_id = %s
-            #         """),
-            #         [str(num_workouts), str(throw_num), str(cardio_num), str(gym_num), str(addition), ids[x]])
-            #     conn.commit()
-            #     send_debug_message("committed %s with %s points" % (names[x], str(addition)))
+            #for mentions that haven't posted before
+            elif score == -1 and channel_id == "C013LDTN13Q":
+                cursor.execute(sql.SQL("INSERT INTO wreck_data VALUES (%s, 0, 0, 0, 0, 0, 0, now(), %s, %s)"),
+                           [names[x], str(ids[x]), '000000000'])
+                send_debug_message("%s is new to Wreck" % name)
+                cursor.execute(sql.SQL("""
+                    UPDATE wreck_data SET num_workouts=num_workouts+%s,
+                    num_throws=num_throws+%s, num_cardio=num_cardio+%s, num_gym=num_gym+%s,
+                    workout_score=workout_score+%s, last_post=now() WHERE slack_id = %s
+                    """),
+                    [str(num_workouts), str(throw_num), str(cardio_num), str(gym_num), str(addition), ids[x]])
+                conn.commit()
+                send_debug_message("committed %s with %s points" % (names[x], str(addition)))
             else:
                 send_debug_message("invalid workout poster found " + names[x])
     except (Exception, psycopg2.DatabaseError) as error:
