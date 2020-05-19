@@ -109,7 +109,7 @@ def add_to_db(channel_id, names, addition, gym_num, throw_num, cardio_num, num_w
             except:
                 cursor.execute(sql.SQL("INSERT INTO wreck_data VALUES (%s, 0, 0, 0, 0, 0, 0, now(), %s, %s)"),
                            [names[x], str(ids[x]), '000000000'])
-                send_debug_message("%s is new to Wreck" % name)
+                send_debug_message("%s is new to Wreck" % names[x])
                 cursor.execute(sql.SQL(
                 "SELECT workout_score FROM wreck_data WHERE slack_id = %s"), [str(ids[x])])
                 score = cursor.fetchall()[0][0]
