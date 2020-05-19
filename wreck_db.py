@@ -102,7 +102,7 @@ def add_to_db(channel_id, names, addition, gym_num, throw_num, cardio_num, num_w
         for x in range(0, len(names)):
             print("starting", names[x])
             cursor.execute(sql.SQL(
-                "BEGIN TRY SELECT workout_score FROM wreck_data WHERE slack_id = %s END TRY BEGIN CATCH INSERT INTO wreck_data VALUES (%s, 0, 0, 0, 0, 0, 0, now(), %s, %s) END CATCH"), [str(ids[x]),names[x], str(ids[x]), '000000000'])
+                "BEGIN TRY SELECT workout_score FROM wreck_data WHERE slack_id = %s; END TRY BEGIN CATCH INSERT INTO wreck_data VALUES (%s, 0, 0, 0, 0, 0, 0, now(), %s, %s); END CATCH"), [str(ids[x]),names[x], str(ids[x]), '000000000'])
             score = cursor.fetchall()[0][0]
             score = int(score)
             if score != -1 and channel_id == "C013LDTN13Q":    #comment add channel id here
