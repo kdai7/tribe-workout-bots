@@ -101,13 +101,19 @@ def add_to_db(channel_id, names, addition, gym_num, throw_num, cardio_num, num_w
         cursor = conn.cursor()
         for x in range(0, len(names)):
             print("starting", names[x])
-            send_debug_message(names[x])
             cursor.execute(sql.SQL(
                 "SELECT workout_score FROM wreck_data WHERE slack_id = %s"), [str(ids[x])])
-            # "BEGIN TRY SELECT workout_score FROM wreck_data WHERE slack_id = %s; END TRY BEGIN CATCH INSERT INTO wreck_data VALUES (%s, 0, 0, 0, 0, 0, 0, now(), %s, %s); END CATCH"), [str(ids[x]),names[x], str(ids[x]), '000000000'])
-            score = cursor.fetchall()[0][0]
-            send_debug_message(score)
-            score = int(score)
+            try:
+                score = cursor.fetchall()[0][0]
+                score = int(score)
+            except:
+                cursor.execute(sql.SQL("INSERT INTO wreck_data VALUES (%s, 0, 0, 0, 0, 0, 0, now(), %s, %s)"),
+                           [names[x], str(ids[x]), '000000000'])
+                send_debug_message("%s is new to Wreck" % name)
+                cursor.execute(sql.SQL(
+                "SELECT workout_score FROM wreck_data WHERE slack_id = %s"), [str(ids[x])])
+                score = cursor.fetchall()[0][0]
+                score = int(score)
             if score != -1 and channel_id == "C013LDTN13Q":    #comment add channel id here
                 cursor.execute(sql.SQL("""
                     UPDATE wreck_data SET num_workouts=num_workouts+%s,
