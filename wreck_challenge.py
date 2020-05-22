@@ -13,6 +13,7 @@ class WreckA:
         self.THROW_POINTS = 1.0
         self.CARDIO_POINTS = 1.0
         self.CHALLENGE_POINTS = 1.0
+        self.OTHER_POINTS = 0.5
         self._additions = []
         self._reaction_added = False
         self._reaction_removed = False
@@ -159,6 +160,9 @@ class WreckA:
             self._points_to_add += self.CARDIO_POINTS
             self.cardio_req_filled += 1
             self._additions.append('!cardio')
+        if '!other' in self._lower_text:
+            self._points_to_add += self.OTHER_POINTS
+            self._additions.append('!other')
 
     def handle_db(self):
         #added reqs

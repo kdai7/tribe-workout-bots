@@ -27,7 +27,7 @@ def add_num_posts(mention_id, event_time, name, channel_id):
         cursor.execute(sql.SQL(
             "UPDATE wreck_data SET num_posts=num_posts+1 WHERE slack_id = %s"),
             [mention_id[0]])
-        if cursor.rowcount == 0 and channel_id == "C013RL3N0BY":    #comment: add channel id here
+        if cursor.rowcount == 0 and channel_id == "C013LDTN13Q": #"C013RL3N0BY":    #comment: add channel id here
             cursor.execute(sql.SQL("INSERT INTO wreck_data VALUES (%s, 1, 0, 0, 0, 0, 0, now(), %s, %s)"),
                            [name, mention_id[0], event_time])
             send_debug_message("%s is new to Wreck" % name)
@@ -109,7 +109,7 @@ def add_to_db(channel_id, names, addition, gym_num, throw_num, cardio_num, num_w
                 "SELECT workout_score FROM wreck_data WHERE slack_id = %s"), [str(ids[x])])
                 score = cursor.fetchall()[0][0]
                 score = int(score)
-            if score != -1 and channel_id == "C013RL3N0BY":    #comment add channel id here
+            if score != -1 and channel_id == "C013LDTN13Q": #"C013RL3N0BY":    #comment add channel id here
                 cursor.execute(sql.SQL("""
                     UPDATE wreck_data SET num_workouts=num_workouts+%s,
                     num_throws=num_throws+%s, num_cardio=num_cardio+%s, num_gym=num_gym+%s,
