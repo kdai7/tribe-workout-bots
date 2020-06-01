@@ -123,6 +123,7 @@ class WreckA:
                 i = temp + 1
         for index in indicies:
             if text[index+1] != ' ':  #need to test this   and check if find returns -1
+                send_debug_message(text.find('>', index))
                 mention_ids.append(text[index + 1:text.find('>', index)])
         self._mentions = mention_ids
 
