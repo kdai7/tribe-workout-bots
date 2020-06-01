@@ -38,8 +38,8 @@ Now that your app has a database, you need to create the table for your app to s
 Open up command prompt/terminal. You will need the Heroku CLI installed, as well as Psql. You can look up the commands for Heroku CLI online, but if you don't want to look into that you can run the commands in the following order:
 
 1. heroku login
-	a. you should be prompted to login via browser after this
-2. heroku pg:psql -a <bot name as it appears on heroku>
+	you should be prompted to login via browser after this
+2. heroku pg:psql -a [bot name as it appears on heroku]
 3. CREATE TABLE wreck_data(name text, num_posts SMALLINT, num_workouts SMALLINT, num_throws SMALLINT, num_cardio SMALLINT, num_gym SMALLINT, workout_score numeric(4, 1), last_post DATE, slack_id CHAR(9), last_time BIGINT)
 	a. the database name should match what is in the code. depending on what repo you cloned, it will likely be wreck_data
 

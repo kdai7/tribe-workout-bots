@@ -122,7 +122,8 @@ class WreckA:
                 indicies.append(temp)
                 i = temp + 1
         for index in indicies:
-            mention_ids.append(text[index + 1:text.find('>', index)])
+            if text[index+1] != ' ':  #need to test this   and check if find returns -1
+                mention_ids.append(text[index + 1:text.find('>', index)])
         self._mentions = mention_ids
 
     def match_names_to_ids(self):
@@ -156,7 +157,11 @@ class WreckA:
             self._points_to_add += self.THROW_POINTS
             self.throw_req_filled += 1
             self._additions.append('!throw')
-        if '!sprint' in self._lower_text or '!sprints' in self._lower_text or '!cardio' in self._lower_text:  #remove cardio if needed
+        if '!sprint' in self._lower_text or '!sprints' in self._lower_text:  
+            self._points_to_add += self.CARDIO_POINTS
+            self.cardio_req_filled += 1
+            self._additions.append('!cardio')
+        if '!cardio' in self._lower_text:
             self._points_to_add += self.CARDIO_POINTS
             self.cardio_req_filled += 1
             self._additions.append('!cardio')
