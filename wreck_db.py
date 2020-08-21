@@ -57,9 +57,11 @@ def collect_stats(datafield, rev):
         leaderboard = cursor.fetchall()
         leaderboard.sort(key=lambda s: s[6], reverse=rev)  # sort the leaderboard by score descending
         string1 = "Leaderboard:\n"
+        # for x in range(0, len(leaderboard)):
+        #     string1 += '%d) %s with %.1f point(s); %.1d throw(s); %.1d sprint(s); %.1d lift(s). \n' % (x + 1, leaderboard[x][0],
+        #         leaderboard[x][6], leaderboard[x][3], leaderboard[x][4], leaderboard[x][5])
         for x in range(0, len(leaderboard)):
-            string1 += '%d) %s with %.1f point(s); %.1d throw(s); %.1d sprint(s); %.1d lift(s). \n' % (x + 1, leaderboard[x][0],
-                leaderboard[x][6], leaderboard[x][3], leaderboard[x][4], leaderboard[x][5])
+            string1 += '%d) %s with %.1f point(s) \n' % (x + 1, leaderboard[x][0], leaderboard[x][6])
         cursor.close()
         conn.close()
         return string1
