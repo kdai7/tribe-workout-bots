@@ -174,7 +174,7 @@ class WreckA:
             self._additions.append('!workout')
         if '!challenge' in self._lower_text:
             self._points_to_add += self.CHALLENGE_POINTS
-            self._additions.append('!other')
+            self._additions.append('!challenge')
 
     def handle_db(self):
         #added reqs
