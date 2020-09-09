@@ -67,7 +67,9 @@ def collect_stats(datafield, rev):
         return string1
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
-
+def collect_team_stats(datafield, rev):  #for team olympics
+    string1 = "team leaderboard"
+    return string1
 
 def get_group_info():
     url = "https://slack.com/api/users.list?token=" + os.getenv('BOT_OAUTH_ACCESS_TOKEN')
