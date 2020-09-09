@@ -94,7 +94,8 @@ def collect_team_stats(datafield, rev):  #for team olympics
         for x in range(0, len(leaderboard)):
             if (leaderboard[x][0] == "Cindy Wang" 
                 or  leaderboard[x][0] == "Amanda McAuley" 
-                or leaderboard[x][0] == "Mechelle Chen" 
+                or leaderboard[x][0] == "Mechelle" 
+                or leaderboard[x][0] == "Harley Ovell" 
                 or leaderboard[x][0] == "Katherine Mittleider"
                 or leaderboard[x][0] == "Kate Hubbard"
                 or leaderboard[x][0] == "Kalpana Agarwal"):
@@ -138,7 +139,7 @@ def collect_team_stats(datafield, rev):  #for team olympics
                 team6 += leaderboard[x][6]
             else:
                 send_debug_message(leaderboard[x][0] + "not counted")
-            string1 += 'Team 1: %.1f \n Team 2: %.1f \n Team 3: %.1f \n Team 4: %.1f \n Team 5: %.1f \n Team 6: %.1f' % (team1, team2, team3, team4, team5, team6)
+        string1 += 'Team 1: %.1f \n Team 2: %.1f \n Team 3: %.1f \n Team 4: %.1f \n Team 5: %.1f \n Team 6: %.1f' % (team1, team2, team3, team4, team5, team6)
                     
         cursor.close()
         conn.close()
