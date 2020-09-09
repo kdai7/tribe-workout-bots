@@ -85,16 +85,21 @@ def collect_team_stats(datafield, rev):  #for team olympics
         leaderboard = cursor.fetchall()
         leaderboard.sort(key=lambda s: s[6], reverse=rev)  # sort the leaderboard by score descending
         string1 = "Leaderboard:\n"
-        count = 0
+        team1 = 0
         # for x in range(0, len(leaderboard)):
         #     string1 += '%d) %s with %.1f point(s); %.1d throw(s); %.1d sprint(s); %.1d lift(s). \n' % (x + 1, leaderboard[x][0],
         #         leaderboard[x][6], leaderboard[x][3], leaderboard[x][4], leaderboard[x][5])
         for x in range(0, len(leaderboard)):
-            
-            count += float(leaderboard[x][6])
+            if leaderboard[x][0] == "Cindy Wang" 
+                or  leaderboard[x][0] == "Amanda McAuley" 
+                or leaderboard[x][0] == "Mechelle Chen" 
+                or leaderboard[x][0] == "Katherine Mittleider"
+                or leaderboard[x][0] == "Kate Hubbard"
+                or leaderboard[x][0] == "Kalpana Agarwal":
+            team1 += float(leaderboard[x][6])
         cursor.close()
         conn.close()
-        string1 += '%.1f'% (count)
+        string1 += '%.1f'% (team1)
         return string1
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
