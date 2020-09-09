@@ -143,6 +143,7 @@ def collect_team_stats(datafield, rev):  #for team olympics
                     + "points\n Team 5: " + team5 + "points\n Team 6: " + team6
         cursor.close()
         conn.close()
+        send_debug_message("debug " + string1)
         return string1
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
