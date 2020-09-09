@@ -96,7 +96,7 @@ def collect_team_stats(datafield, rev):  #for team olympics
                 or leaderboard[x][0] == "Katherine Mittleider"
                 or leaderboard[x][0] == "Kate Hubbard"
                 or leaderboard[x][0] == "Kalpana Agarwal":
-            team1 += float(leaderboard[x][6])
+                team1 += float(leaderboard[x][6])
         cursor.close()
         conn.close()
         string1 += '%.1f'% (team1)
