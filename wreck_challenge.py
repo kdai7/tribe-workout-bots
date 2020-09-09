@@ -212,6 +212,7 @@ class WreckA:
             if "!teamleaderboard" in self._lower_text: #for team olympics
                 count += 1
                 to_print = collect_team_stats(3, True)
+                to_print = "team leaderboard"
                 send_message(to_print, channel=self._channel, bot_name=self._name, url=self._avatar_url)
             if '!workouts' in self._lower_text:  # display the leaderboard for who works out the most
                 count += 1
