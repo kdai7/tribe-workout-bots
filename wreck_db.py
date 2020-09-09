@@ -91,10 +91,10 @@ def collect_team_stats(datafield, rev):  #for team olympics
         #         leaderboard[x][6], leaderboard[x][3], leaderboard[x][4], leaderboard[x][5])
         for x in range(0, len(leaderboard)):
             
-            count += leaderboard[x][6]
+            count += float(leaderboard[x][6])
         cursor.close()
         conn.close()
-        string += '%.1f',count
+        string += count
         return string1
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
