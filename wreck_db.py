@@ -83,19 +83,65 @@ def collect_team_stats(datafield, rev):  #for team olympics
         cursor.execute(sql.SQL(
             "SELECT * FROM wreck_data WHERE workout_score > -1.0"), )
         leaderboard = cursor.fetchall()
-        leaderboard.sort(key=lambda s: s[6], reverse=rev)  # sort the leaderboard by score descending
+        # leaderboard.sort(key=lambda s: s[6], reverse=rev)  # sort the leaderboard by score descending
         string1 = "Leaderboard:\n"
         team1 = 0
-        # for x in range(0, len(leaderboard)):
-        #     string1 += '%d) %s with %.1f point(s); %.1d throw(s); %.1d sprint(s); %.1d lift(s). \n' % (x + 1, leaderboard[x][0],
-        #         leaderboard[x][6], leaderboard[x][3], leaderboard[x][4], leaderboard[x][5])
+        team2 = 0
+        team3 = 0
+        team4 = 0
+        team5 = 0
+        team6 = 0
         for x in range(0, len(leaderboard)):
             if (leaderboard[x][0] == "Cindy Wang" 
-                or  leaderboard[x][0] == "Amanda McAuley"):
-                team1 += float(leaderboard[x][6])
+                or  leaderboard[x][0] == "Amanda McAuley" 
+                or leaderboard[x][0] == "Mechelle Chen" 
+                or leaderboard[x][0] == "Katherine Mittleider"
+                or leaderboard[x][0] == "Kate Hubbard"
+                or leaderboard[x][0] == "Kalpana Agarwal"):
+                team1 += leaderboard[x][6]
+            elif (leaderboard[x][0] == "Becca Xiao" 
+                or  leaderboard[x][0] == "Nasim Motaghedi" 
+                or leaderboard[x][0] == "Mia Giandinoto" 
+                or leaderboard[x][0] == "Maya Neal"
+                or leaderboard[x][0] == "Becky Koon"
+                or leaderboard[x][0] == "Kendall Wilhelm"):
+                team2 += leaderboard[x][6]
+            elif (leaderboard[x][0] == "Janani Guru" 
+                or  leaderboard[x][0] == "Tara Poteat" 
+                or leaderboard[x][0] == "Brooke Sciandra" 
+                or leaderboard[x][0] == "Libby Vaughan"
+                or leaderboard[x][0] == "Marissa"
+                or leaderboard[x][0] == "Gleymi Hernandez"):
+                team3 += leaderboard[x][6]
+            elif (leaderboard[x][0] == "Katie Dai" 
+                or  leaderboard[x][0] == "Callie Goins" 
+                or leaderboard[x][0] == "Erin Piacitelli"
+                or leaderboard[x][0] == "Sarah Chen" 
+                or leaderboard[x][0] == "Anna Cobb"
+                or leaderboard[x][0] == "Sydney Bules"):
+                team4 += leaderboard[x][6]
+            elif (leaderboard[x][0] == "Juliann Pham" 
+                or  leaderboard[x][0] == "Johanna Hall" 
+                or leaderboard[x][0] == "Grace Erlinger" 
+                or leaderboard[x][0] == "Zion Oh"
+                or leaderboard[x][0] == "Siobhan Kells"
+                or leaderboard[x][0] == "Sammie Brewer"
+                or leaderboard[x][0] == "Claire Haskell"):
+                team5 += leaderboard[x][6]
+            elif (leaderboard[x][0] == "Alexandra Towner" 
+                or  leaderboard[x][0] == "Sarah Rodriguez" 
+                or leaderboard[x][0] == "Hannah Paterson" 
+                or leaderboard[x][0] == "Savannah Lo"
+                or leaderboard[x][0] == "Jenny Choi"
+                or leaderboard[x][0] == "Jessica Ouyang"
+                or leaderboard[x][0] == "Bryn Shannon"):
+                team6 += leaderboard[x][6]
+            else:
+                send_debug_message(leaderboard[x][0] + "not counted")
+            string1 += 'Team 1: %.1f \n Team 2: %.1f \n Team 3: %.1f \n Team 4: %.1f \n Team 5: %.1f \n Team 6: %.1f' % (team1, team2, team3, team4, team5, team6)
+                    
         cursor.close()
         conn.close()
-        string1 += '%.1f'% (team1)
         return string1
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
