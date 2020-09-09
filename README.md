@@ -40,7 +40,7 @@ Open up command prompt/terminal. You will need the Heroku CLI installed, as well
 1. heroku login
 	you should be prompted to login via browser after this
 2. heroku pg:psql -a [bot name as it appears on heroku]
-3. CREATE TABLE wreck_data(name text, num_posts SMALLINT, num_workouts SMALLINT, num_throws SMALLINT, num_cardio SMALLINT, num_gym SMALLINT, workout_score numeric(4, 1), last_post DATE, slack_id CHAR(9), last_time BIGINT)
+3. CREATE TABLE wreck_data(name text, num_posts SMALLINT, num_workouts SMALLINT, num_throws SMALLINT, num_cardio SMALLINT, num_gym SMALLINT, workout_score numeric(4, 1), last_post DATE, slack_id VARCHAR(11), last_time BIGINT)
 	a. the database name should match what is in the code. depending on what repo you cloned, it will likely be wreck_data
 
 That's it for command line statements! You can double check that your table was created with the \d command after.
