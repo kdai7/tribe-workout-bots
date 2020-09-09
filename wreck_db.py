@@ -90,12 +90,7 @@ def collect_team_stats(datafield, rev):  #for team olympics
         #     string1 += '%d) %s with %.1f point(s); %.1d throw(s); %.1d sprint(s); %.1d lift(s). \n' % (x + 1, leaderboard[x][0],
         #         leaderboard[x][6], leaderboard[x][3], leaderboard[x][4], leaderboard[x][5])
         for x in range(0, len(leaderboard)):
-            if leaderboard[x][0] == "Cindy Wang" 
-                or  leaderboard[x][0] == "Amanda McAuley" 
-                or leaderboard[x][0] == "Mechelle Chen" 
-                or leaderboard[x][0] == "Katherine Mittleider"
-                or leaderboard[x][0] == "Kate Hubbard"
-                or leaderboard[x][0] == "Kalpana Agarwal":
+            if leaderboard[x][0] == "Cindy Wang":
                 team1 += float(leaderboard[x][6])
         cursor.close()
         conn.close()
