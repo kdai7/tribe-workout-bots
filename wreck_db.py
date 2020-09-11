@@ -139,7 +139,11 @@ def collect_team_stats(datafield, rev):  #for team olympics
                 team6 += leaderboard[x][6]
             else:
                 send_debug_message(leaderboard[x][0] + "not counted")
-        string1 += 'Team 1: %.1f \n Team 2: %.1f \n Team 3: %.1f \n Team 4: %.1f \n Team 5: %.1f \n Team 6: %.1f' % (team1, team2, team3, team4, team5, team6)
+        teamleaderboard = [("Team 1", team1), ("Team 2", team2), ("Team 3", team3), ("Team 4", team4), ("Team 5", team5), ("Team 6", team6)]
+        teamleaderboard.sort(key=lambda s: s[1], reverse=rev)
+        for x in range(0, len(teamleaderboard)):
+            string1 += '%s: %.1f point \n' % (teamleaderboard[x][0], teamleaderboard[x][1])
+        # string1 += 'Team 1: %.1f \n Team 2: %.1f \n Team 3: %.1f \n Team 4: %.1f \n Team 5: %.1f \n Team 6: %.1f' % (team1, team2, team3, team4, team5, team6)
                     
         cursor.close()
         conn.close()
