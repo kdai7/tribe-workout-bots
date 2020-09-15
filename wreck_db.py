@@ -105,14 +105,16 @@ def collect_team_stats(datafield, rev):  #for team olympics
                 or leaderboard[x][0] == "Mia Giandinoto" 
                 or leaderboard[x][0] == "Maya Neal"
                 or leaderboard[x][0] == "Becky Koon"
-                or leaderboard[x][0] == "Kendall Wilhelm"):
+                or leaderboard[x][0] == "Kendall Wilhelm"
+                or leaderboard[x][0] == "Lauren Wilder"):
                 team2 += leaderboard[x][6]
             elif (leaderboard[x][0] == "Janani Guru" 
                 or  leaderboard[x][0] == "Tara Poteat" 
                 or leaderboard[x][0] == "Brooke Sciandra" 
                 or leaderboard[x][0] == "Libby Vaughan"
                 or leaderboard[x][0] == "Marissa"
-                or leaderboard[x][0] == "Gleymi Hernandez"):
+                or leaderboard[x][0] == "Gleymi Hernandez"
+                or leaderboard[x][0] == "Layla Singletary"):
                 team3 += leaderboard[x][6]
             elif (leaderboard[x][0] == "Katie Dai" 
                 or  leaderboard[x][0] == "Callie Goins" 
