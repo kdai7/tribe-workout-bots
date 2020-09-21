@@ -141,7 +141,7 @@ def collect_team_stats(datafield, rev):  #for team olympics
                 team6 += leaderboard[x][6]
             else:
                 send_debug_message(leaderboard[x][0] + "not counted")
-        teamleaderboard = [("Team 1", team1), ("Team 2", team2), ("Team 3", team3), ("Team 4", team4), ("Team 5", team5), ("Team 6", team6)]
+        teamleaderboard = [("GUARDians of the galHUCKsy", team1), ("The Poached Eggs", team2), ("Huck It Like It's Hot", team3), ("ho st4ck", team4), ("TOO HOT TO CALLAHANDLE", team5), ("Game of Throws", team6)]
         teamleaderboard.sort(key=lambda s: s[1], reverse=rev)
         for x in range(0, len(teamleaderboard)):
             string1 += '%s: %.1f points \n' % (teamleaderboard[x][0], teamleaderboard[x][1])
