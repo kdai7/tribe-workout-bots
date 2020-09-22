@@ -144,7 +144,7 @@ def collect_team_stats(datafield, rev):  #for team olympics
         teamleaderboard = [("GUARDians of the galHUCKsy", team1), ("The Poached Eggs", team2), ("Huck It Like It's Hot", team3), ("ho st4ck", team4), ("TOO HOT TO CALLAHANDLE", team5), ("Game of Throws", team6)]
         teamleaderboard.sort(key=lambda s: s[1], reverse=rev)
         for x in range(0, len(teamleaderboard)):
-            string1 += '%s: %.1f points \n' % (teamleaderboard[x][0], teamleaderboard[x][1])
+            string1 += '%s: %.1f\n' % (teamleaderboard[x][0], teamleaderboard[x][1])
         # string1 += 'Team 1: %.1f \n Team 2: %.1f \n Team 3: %.1f \n Team 4: %.1f \n Team 5: %.1f \n Team 6: %.1f' % (team1, team2, team3, team4, team5, team6)
                     
         cursor.close()
