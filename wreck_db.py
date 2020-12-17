@@ -27,7 +27,7 @@ def add_num_posts(mention_id, event_time, name, channel_id):
         cursor.execute(sql.SQL(
             "UPDATE wreck_data SET num_posts=num_posts+1 WHERE slack_id = %s"),
             [mention_id[0]])
-        if cursor.rowcount == 0 and channel_id == 'C018V6K1PFH': #"C013LDTN13Q":    #comment: add channel id here
+        if cursor.rowcount == 0 and channel_id == "C013LDTN13Q":    #comment: add channel id here
             cursor.execute(sql.SQL("INSERT INTO wreck_data VALUES (%s, 1, 0, 0, 0, 0, 0, now(), %s, %s)"),
                            [name, mention_id[0], event_time])
             send_debug_message("%s is new to Wreck" % name)
@@ -67,7 +67,7 @@ def collect_stats(datafield, rev):
         return string1
     except (Exception, psycopg2.DatabaseError) as error:
         send_debug_message(error)
-def collect_team_stats(datafield, rev):  #for team olympics
+def collect_team_stats(datafield, rev):  #for teams (can assign names to teams here)
     try:
         urllib.parse.uses_netloc.append("postgres")
         url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
@@ -87,61 +87,64 @@ def collect_team_stats(datafield, rev):  #for team olympics
         string1 = "Leaderboard:\n"
         team1 = 0
         team2 = 0
-        team3 = 0
-        team4 = 0
-        team5 = 0
-        team6 = 0
+        # team3 = 0
+        # team4 = 0
+        # team5 = 0
+        # team6 = 0
         for x in range(0, len(leaderboard)):
             if (leaderboard[x][0] == "Cindy Wang" 
-                or  leaderboard[x][0] == "Amanda McAuley" 
-                or leaderboard[x][0] == "Mechelle" 
-                or leaderboard[x][0] == "Harley Ovell" 
-                or leaderboard[x][0] == "Katherine Mittleider"
-                or leaderboard[x][0] == "Kate Hubbard"
-                or leaderboard[x][0] == "Kalpana Agarwal"):
+                or  leaderboard[x][0] == "Katie Dai" 
+                or leaderboard[x][0] == "Becca Xiao" 
+                or leaderboard[x][0] == "Janani Guru" 
+                or leaderboard[x][0] == "Juliann Pham"
+                or leaderboard[x][0] == "Alexandra Towner"
+                or leaderboard[x][0] == "Jin-Mi Matsunaga"
+                or leaderboard[x][0] == "Elizabeth Jones"):
                 team1 += leaderboard[x][6]
-            elif (leaderboard[x][0] == "Becca Xiao" 
-                or  leaderboard[x][0] == "Nasim Motaghedi" 
-                or leaderboard[x][0] == "Mia Giandinoto" 
-                or leaderboard[x][0] == "Maya Neal"
-                or leaderboard[x][0] == "Becky Koon"
-                or leaderboard[x][0] == "Kendall Wilhelm"
-                or leaderboard[x][0] == "Lauren Wilder"):
-                team2 += leaderboard[x][6]
-            elif (leaderboard[x][0] == "Janani Guru" 
-                or  leaderboard[x][0] == "Tara Poteat" 
-                or leaderboard[x][0] == "Brooke Sciandra" 
-                or leaderboard[x][0] == "Libby Vaughan"
-                or leaderboard[x][0] == "Marissa"
-                or leaderboard[x][0] == "Gleymi Hernandez"
-                or leaderboard[x][0] == "Layla Singletary"):
-                team3 += leaderboard[x][6]
-            elif (leaderboard[x][0] == "Katie Dai" 
-                or  leaderboard[x][0] == "Callie Goins" 
-                or leaderboard[x][0] == "Erin Piacitelli"
-                or leaderboard[x][0] == "Sarah Chen" 
-                or leaderboard[x][0] == "Anna Cobb"
-                or leaderboard[x][0] == "Sydney Bules"):
-                team4 += leaderboard[x][6]
-            elif (leaderboard[x][0] == "Juliann Pham" 
-                or  leaderboard[x][0] == "Johanna Hall" 
-                or leaderboard[x][0] == "Grace Erlinger" 
-                or leaderboard[x][0] == "Zion Oh"
-                or leaderboard[x][0] == "Siobhan Kells"
-                or leaderboard[x][0] == "Sammie Brewer"
-                or leaderboard[x][0] == "Claire Haskell"):
-                team5 += leaderboard[x][6]
-            elif (leaderboard[x][0] == "Alexandra Towner" 
-                or  leaderboard[x][0] == "Sarah Rodriguez" 
-                or leaderboard[x][0] == "Hannah Paterson" 
-                or leaderboard[x][0] == "Savannah Lo"
-                or leaderboard[x][0] == "Jenny Choi"
-                or leaderboard[x][0] == "Jessica Ouyang"
-                or leaderboard[x][0] == "Bryn Shannon"):
-                team6 += leaderboard[x][6]
+            # elif (leaderboard[x][0] == "Becca Xiao" 
+            #     or  leaderboard[x][0] == "Nasim Motaghedi" 
+            #     or leaderboard[x][0] == "Mia Giandinoto" 
+            #     or leaderboard[x][0] == "Maya Neal"
+            #     or leaderboard[x][0] == "Becky Koon"
+            #     or leaderboard[x][0] == "Kendall Wilhelm"
+            #     or leaderboard[x][0] == "Lauren Wilder"):
+            #     team2 += leaderboard[x][6]
+            # elif (leaderboard[x][0] == "Janani Guru" 
+            #     or  leaderboard[x][0] == "Tara Poteat" 
+            #     or leaderboard[x][0] == "Brooke Sciandra" 
+            #     or leaderboard[x][0] == "Libby Vaughan"
+            #     or leaderboard[x][0] == "Marissa"
+            #     or leaderboard[x][0] == "Gleymi Hernandez"
+            #     or leaderboard[x][0] == "Layla Singletary"):
+            #     team3 += leaderboard[x][6]
+            # elif (leaderboard[x][0] == "Katie Dai" 
+            #     or  leaderboard[x][0] == "Callie Goins" 
+            #     or leaderboard[x][0] == "Erin Piacitelli"
+            #     or leaderboard[x][0] == "Sarah Chen" 
+            #     or leaderboard[x][0] == "Anna Cobb"
+            #     or leaderboard[x][0] == "Sydney Bules"):
+            #     team4 += leaderboard[x][6]
+            # elif (leaderboard[x][0] == "Juliann Pham" 
+            #     or  leaderboard[x][0] == "Johanna Hall" 
+            #     or leaderboard[x][0] == "Grace Erlinger" 
+            #     or leaderboard[x][0] == "Zion Oh"
+            #     or leaderboard[x][0] == "Siobhan Kells"
+            #     or leaderboard[x][0] == "Sammie Brewer"
+            #     or leaderboard[x][0] == "Claire Haskell"):
+            #     team5 += leaderboard[x][6]
+            # elif (leaderboard[x][0] == "Alexandra Towner" 
+            #     or  leaderboard[x][0] == "Sarah Rodriguez" 
+            #     or leaderboard[x][0] == "Hannah Paterson" 
+            #     or leaderboard[x][0] == "Savannah Lo"
+            #     or leaderboard[x][0] == "Jenny Choi"
+            #     or leaderboard[x][0] == "Jessica Ouyang"
+            #     or leaderboard[x][0] == "Bryn Shannon"):
+            #     team6 += leaderboard[x][6]
             else:
-                send_debug_message(leaderboard[x][0] + "not counted")
-        teamleaderboard = [("GUARDians of the galHUCKsy", team1), ("The Poached Eggs", team2), ("Huck It Like It's Hot", team3), ("ho st4ck", team4), ("TOO HOT TO CALLAHANDLE", team5), ("Game of Throws", team6)]
+                team2 += leaderboard[x][6]
+                # send_debug_message(leaderboard[x][0] + "not counted")
+        # teamleaderboard = [("GUARDians of the galHUCKsy", team1), ("The Poached Eggs", team2), ("Huck It Like It's Hot", team3), ("ho st4ck", team4), ("TOO HOT TO CALLAHANDLE", team5), ("Game of Throws", team6)]
+        teamleaderboard = [("Leadership", team1), ("Wreck", team2)]
         teamleaderboard.sort(key=lambda s: s[1], reverse=rev)
         for x in range(0, len(teamleaderboard)):
             string1 += '%s: %.1f\n' % (teamleaderboard[x][0], teamleaderboard[x][1])
@@ -196,7 +199,7 @@ def add_to_db(channel_id, names, addition, gym_num, throw_num, cardio_num, num_w
                 "SELECT workout_score FROM wreck_data WHERE slack_id = %s"), [str(ids[x])])
                 score = cursor.fetchall()[0][0]
                 score = int(score)
-            if score != -1 and channel_id == 'C018V6K1PFH': #"C013LDTN13Q":   #comment add channel id here
+            if score != -1 and channel_id == "C013LDTN13Q":   #comment add channel id here
                 cursor.execute(sql.SQL("""
                     UPDATE wreck_data SET num_workouts=num_workouts+%s,
                     num_throws=num_throws+%s, num_cardio=num_cardio+%s, num_gym=num_gym+%s,
