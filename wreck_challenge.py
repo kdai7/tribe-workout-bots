@@ -167,7 +167,7 @@ class WreckA:
         #     self.cardio_req_filled += 1
         #     self._additions.append('!cardio')
         if '!social' in self._lower_text:
-            self._points_to_add += self.OTHER_POINTS
+            self._points_to_add += self.CHALLENGE_POINTS
             self._additions.append('!social')
         if '!workout' in self._lower_text:
             self._points_to_add += self.GYM_POINTS
