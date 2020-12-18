@@ -27,7 +27,7 @@ def add_num_posts(mention_id, event_time, name, channel_id):
         cursor.execute(sql.SQL(
             "UPDATE wreck_data SET num_posts=num_posts+1 WHERE slack_id = %s"),
             [mention_id[0]])
-        if cursor.rowcount == 0 and channel_id == "C013LDTN13Q":    #comment: add channel id here
+        if cursor.rowcount == 0 and channel_id == "C013LDTN13Q":  #C01G4SNH38F  #comment: add channel id here
             cursor.execute(sql.SQL("INSERT INTO wreck_data VALUES (%s, 1, 0, 0, 0, 0, 0, now(), %s, %s)"),
                            [name, mention_id[0], event_time])
             send_debug_message("%s is new to Wreck" % name)
@@ -99,7 +99,8 @@ def collect_team_stats(datafield, rev):  #for teams (can assign names to teams h
                 or leaderboard[x][0] == "Juliann Pham"
                 or leaderboard[x][0] == "Alexandra Towner"
                 or leaderboard[x][0] == "Jin-Mi Matsunaga"
-                or leaderboard[x][0] == "Elizabeth Jones"):
+                or leaderboard[x][0] == "Elizabeth Jones"
+                or leaderboard[x][0] == "Shanye Crawford"):
                 team1 += leaderboard[x][6]
             # elif (leaderboard[x][0] == "Becca Xiao" 
             #     or  leaderboard[x][0] == "Nasim Motaghedi" 
@@ -141,10 +142,10 @@ def collect_team_stats(datafield, rev):  #for teams (can assign names to teams h
             #     or leaderboard[x][0] == "Bryn Shannon"):
             #     team6 += leaderboard[x][6]
             else:
-                team2 += leaderboard[x][6]
+                team2 += 0.75*leaderboard[x][6]
                 # send_debug_message(leaderboard[x][0] + "not counted")
         # teamleaderboard = [("GUARDians of the galHUCKsy", team1), ("The Poached Eggs", team2), ("Huck It Like It's Hot", team3), ("ho st4ck", team4), ("TOO HOT TO CALLAHANDLE", team5), ("Game of Throws", team6)]
-        teamleaderboard = [("Leadership", team1), ("Wreck", team2)]
+        teamleaderboard = [("Caps & Coaches", team1), ("Wreck", team2)]
         teamleaderboard.sort(key=lambda s: s[1], reverse=rev)
         for x in range(0, len(teamleaderboard)):
             string1 += '%s: %.1f\n' % (teamleaderboard[x][0], teamleaderboard[x][1])
@@ -199,7 +200,7 @@ def add_to_db(channel_id, names, addition, gym_num, throw_num, cardio_num, num_w
                 "SELECT workout_score FROM wreck_data WHERE slack_id = %s"), [str(ids[x])])
                 score = cursor.fetchall()[0][0]
                 score = int(score)
-            if score != -1 and channel_id == "C013LDTN13Q":   #comment add channel id here
+            if score != -1 and channel_id == "C013LDTN13Q": #C01G4SNH38F  #comment add channel id here
                 cursor.execute(sql.SQL("""
                     UPDATE wreck_data SET num_workouts=num_workouts+%s,
                     num_throws=num_throws+%s, num_cardio=num_cardio+%s, num_gym=num_gym+%s,
