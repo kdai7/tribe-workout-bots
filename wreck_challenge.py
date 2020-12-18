@@ -175,9 +175,9 @@ class WreckA:
         if '!throw' in self._lower_text:
             self._points_to_add += self.GYM_POINTS
             self._additions.append('!throw')
-        if '!challenge' in self._lower_text:
+        if '!goofy' in self._lower_text:
             self._points_to_add += self.CHALLENGE_POINTS
-            self._additions.append('!challenge')
+            self._additions.append('!goofy')
 
     def handle_db(self):
         #added reqs
