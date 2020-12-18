@@ -142,7 +142,7 @@ def collect_team_stats(datafield, rev):  #for teams (can assign names to teams h
             #     or leaderboard[x][0] == "Bryn Shannon"):
             #     team6 += leaderboard[x][6]
             else:
-                team2 += float(0.75)*float(leaderboard[x][6])
+                team2 += (3/4)*leaderboard[x][6]
                 # send_debug_message(leaderboard[x][0] + "not counted")
         # teamleaderboard = [("GUARDians of the galHUCKsy", team1), ("The Poached Eggs", team2), ("Huck It Like It's Hot", team3), ("ho st4ck", team4), ("TOO HOT TO CALLAHANDLE", team5), ("Game of Throws", team6)]
         teamleaderboard = [("Caps & Coaches", team1), ("Wreck", team2)]
