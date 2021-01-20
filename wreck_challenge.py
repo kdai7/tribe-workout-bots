@@ -150,34 +150,31 @@ class WreckA:
         self.throw_req_filled = 0
         self.gym_req_filled = 0
         self.cardio_req_filled = 0
-        # if '!lift' in self._lower_text or '!gym' in self._lower_text:
-        #     self._points_to_add += self.GYM_POINTS
-        #     self.gym_req_filled += 1
-        #     self._additions.append('!gym')
-        # if '!throw' in self._lower_text:
-        #     self._points_to_add += self.THROW_POINTS
-        #     self.throw_req_filled += 1
-        #     self._additions.append('!throw')
-        # if '!sprint' in self._lower_text or '!sprints' in self._lower_text:  
-        #     self._points_to_add += self.CARDIO_POINTS
-        #     self.cardio_req_filled += 1
-        #     self._additions.append('!cardio')
-        # if '!cardio' in self._lower_text:
-        #     self._points_to_add += self.CARDIO_POINTS
-        #     self.cardio_req_filled += 1
-        #     self._additions.append('!cardio')
-        if '!social' in self._lower_text:
-            self._points_to_add += self.CHALLENGE_POINTS
-            self._additions.append('!social')
-        if '!workout' in self._lower_text:
+        if '!lift' in self._lower_text or '!gym' in self._lower_text:
             self._points_to_add += self.GYM_POINTS
-            self._additions.append('!workout')
+            self.gym_req_filled += 1
+            self._additions.append('!gym')
         if '!throw' in self._lower_text:
-            self._points_to_add += self.GYM_POINTS
+            self._points_to_add += self.THROW_POINTS
+            self.throw_req_filled += 1
             self._additions.append('!throw')
-        if '!goofy' in self._lower_text:
-            self._points_to_add += self.CHALLENGE_POINTS
-            self._additions.append('!goofy')
+        if '!sprint' in self._lower_text or '!sprints' in self._lower_text:  
+            self._points_to_add += self.CARDIO_POINTS
+            self.cardio_req_filled += 1
+            self._additions.append('!cardio')
+        if '!cardio' in self._lower_text:
+            self._points_to_add += self.CARDIO_POINTS
+            self.cardio_req_filled += 1
+            self._additions.append('!cardio')
+        # if '!social' in self._lower_text:
+        #     self._points_to_add += self.CHALLENGE_POINTS
+        #     self._additions.append('!social')
+        # if '!workout' in self._lower_text:
+        #     self._points_to_add += self.GYM_POINTS
+        #     self._additions.append('!workout')
+        # if '!throw' in self._lower_text:
+        #     self._points_to_add += self.GYM_POINTS
+        #     self._additions.append('!throw')
 
     def handle_db(self):
         #added reqs
