@@ -28,7 +28,7 @@ def add_num_posts(mention_id, event_time, name, channel_id):
         cursor.execute(sql.SQL(
             "UPDATE wreck_data SET num_posts=num_posts+1 WHERE slack_id = %s"),
             [mention_id[0]])
-        if cursor.rowcount == 0 and channel_id == "C013LDTN13Q":  #comment: add channel id here
+        if cursor.rowcount == 0 and channel_id == "CDF3DDYQ1"  #"C013LDTN13Q":  #comment: add channel id here
             cursor.execute(sql.SQL("INSERT INTO wreck_data VALUES (%s, 1, 0, 0, 0, 0, 0, now(), %s, %s)"),
                            [name, mention_id[0], event_time])
             send_debug_message("%s is new to Wreck" % name)
@@ -59,7 +59,7 @@ def collect_stats(datafield, rev):
         leaderboard.sort(key=lambda s: s[6], reverse=rev)  # sort the leaderboard by score descending
         string1 = "Leaderboard:\n"
         for x in range(0, len(leaderboard)):
-            string1 += '%d) %s with %.1f point(s); %.1d throw(s); %.1d sprint(s)/cardio; %.1d lift(s). \n' % (x + 1, leaderboard[x][0],
+            string1 += '%d) %s with %.1f point(s): %.1d throw(s); %.1d sprint(s)/cardio; %.1d lift(s). \n' % (x + 1, leaderboard[x][0],
                 leaderboard[x][6], leaderboard[x][3], leaderboard[x][4], leaderboard[x][5])
         # for x in range(0, len(leaderboard)):
         #     string1 += '%d) %s with %.1f point(s) \n' % (x + 1, leaderboard[x][0], leaderboard[x][6])
@@ -201,7 +201,7 @@ def add_to_db(channel_id, names, addition, gym_num, throw_num, cardio_num, num_w
                 "SELECT workout_score FROM wreck_data WHERE slack_id = %s"), [str(ids[x])])
                 score = cursor.fetchall()[0][0]
                 score = int(score)
-            if score != -1 and channel_id == "C013LDTN13Q":  #comment add channel id here
+            if score != -1 and channel_id == "CDF3DDYQ1"   #"C013LDTN13Q":  #comment add channel id here
                 cursor.execute(sql.SQL("""
                     UPDATE wreck_data SET num_workouts=num_workouts+%s,
                     num_throws=num_throws+%s, num_cardio=num_cardio+%s, num_gym=num_gym+%s,
